@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import item_pb2 as item__pb2
+import order_pb2 as order__pb2
 
 
 class OrderServiceStub(object):
@@ -16,13 +16,13 @@ class OrderServiceStub(object):
         """
         self.Create = channel.unary_unary(
                 '/OrderService/Create',
-                request_serializer=item__pb2.OrderMessage.SerializeToString,
-                response_deserializer=item__pb2.OrderMessage.FromString,
+                request_serializer=order__pb2.OrderMessage.SerializeToString,
+                response_deserializer=order__pb2.OrderMessage.FromString,
                 )
         self.Get = channel.unary_unary(
                 '/OrderService/Get',
-                request_serializer=item__pb2.Empty.SerializeToString,
-                response_deserializer=item__pb2.OrderMessageList.FromString,
+                request_serializer=order__pb2.Empty.SerializeToString,
+                response_deserializer=order__pb2.OrderMessageList.FromString,
                 )
 
 
@@ -46,13 +46,13 @@ def add_OrderServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Create': grpc.unary_unary_rpc_method_handler(
                     servicer.Create,
-                    request_deserializer=item__pb2.OrderMessage.FromString,
-                    response_serializer=item__pb2.OrderMessage.SerializeToString,
+                    request_deserializer=order__pb2.OrderMessage.FromString,
+                    response_serializer=order__pb2.OrderMessage.SerializeToString,
             ),
             'Get': grpc.unary_unary_rpc_method_handler(
                     servicer.Get,
-                    request_deserializer=item__pb2.Empty.FromString,
-                    response_serializer=item__pb2.OrderMessageList.SerializeToString,
+                    request_deserializer=order__pb2.Empty.FromString,
+                    response_serializer=order__pb2.OrderMessageList.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -76,8 +76,8 @@ class OrderService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/OrderService/Create',
-            item__pb2.OrderMessage.SerializeToString,
-            item__pb2.OrderMessage.FromString,
+            order__pb2.OrderMessage.SerializeToString,
+            order__pb2.OrderMessage.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -93,7 +93,7 @@ class OrderService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/OrderService/Get',
-            item__pb2.Empty.SerializeToString,
-            item__pb2.OrderMessageList.FromString,
+            order__pb2.Empty.SerializeToString,
+            order__pb2.OrderMessageList.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
